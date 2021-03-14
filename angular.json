@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "mundoaberto"
+  "defaultProject": "mundoaberto",
+  "cli": {
+    "analytics": "b922c444-3a67-43ea-a027-50972cc09331"
+  }
 }
