@@ -5,6 +5,7 @@ import { Plataforma } from "./abstract/Plataforma";
 import { Fase } from "./abstract/Fase";
 import { Player } from "./abstract/Player";
 import { Entidade, Zero, ZeroSprite } from "./personagens/Zero";
+import { Fase0 } from "./fases/Fase0";
 
 
   
@@ -22,7 +23,9 @@ export class Mundo{
          new Zero()
     ]
 
-    public static fases : Array<Fase> = [];
+    public fases : Array<Fase0> = [
+         new Fase0()
+    ];
     
     
     
@@ -30,8 +33,8 @@ export class Mundo{
         
     ];
     
-    public activePlayer : Zero = new Zero();
-  static activePlayer: any;
+    public activePlayer : Zero = this.personagens[0];
+    public activeFase   : Fase0  = this.fases[0];
    
 
 

@@ -59,6 +59,7 @@ export abstract class Entidade {
 
 //personagem
 export class Zero extends Entidade{
+    
     public tamanho = 50;
     public sprite : Sprite = new ZeroSprite();
     public vector2d : Vector2d =  Vector2d.init({
@@ -70,6 +71,15 @@ export class Zero extends Entidade{
         super();
         this.sprite = new ZeroSprite();
     }
+
+    draw(p : any){
+        if(!!this.sprite.imagem){
+            let x = this.vector2d.relativeView().x;
+            let y = this.vector2d.relativeView().y;
+            let tam = this.tamanho/2;
+            p.image(this.sprite.imagem,x-tam,y-tam);
+         }
+    }
     
     animacao(event : any){
         return this.sprite.imagem;
@@ -77,6 +87,25 @@ export class Zero extends Entidade{
 
     posicaoTela(){
         return this.vector2d.relativeView();
+    }
+
+    loadSprite(p : any){
+        let src = this.sprite.src;
+        p.loadImage(src,
+            (img : p5.Image) => {
+                console.log("Carregou Imagem!");
+                img.resize(this.tamanho,this.tamanho)
+                this.sprite.imagem = img;
+             },
+           (erro : Event)=>{
+              console.log(erro);
+           }
+           );
+    }
+
+    update(p: p5) {
+        
+        //this.vector2d.move(this.vector2d.relative(p.mouseX,p.mouseY));
     }
 
     init(){
