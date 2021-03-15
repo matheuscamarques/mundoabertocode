@@ -39,6 +39,7 @@ export class AppComponent {
 
     p.preload = () => {
       mundo.activePlayer.loadSprite(p);
+      mundo.activeFase.loadSprite(p);
     };
 
 
@@ -56,7 +57,7 @@ export class AppComponent {
       let mouse = new Vector2d(p.mouseX,p.mouseY);
       Controles.mouseMove(mundo.activePlayer,mouse);
 
-      p.background(0, 255, 0);
+      p.background(0, 255 ,0);
 
       //Limitar a tela para não aparecer fundo verde
       // if(mundo.activeFase.width > mundo.activePlayer.x + AppComponent.width ){
@@ -67,7 +68,7 @@ export class AppComponent {
       //   mundo.activePlayer.camera(p);
       // }
       
-      
+      mundo.activePlayer.camera(p);
       mundo.activeFase.draw(p);
      
       //p.move(this.x,this.y);

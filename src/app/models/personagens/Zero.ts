@@ -7,49 +7,49 @@ import { Vector2d } from "../abstract/Vector2d";
 import { Mundo } from "../Mundo";
 
 
-export class ZeroSprite extends Sprite{
-    
+export class ZeroSprite extends Sprite {
+
     public src = 'assets/imagem/zero.jpg';
-       //this.leftRunning;
-    public imagem : any = 0;
+    //this.leftRunning;
+    public imagem: any = 0;
 
-    
 
-   andarBaixo(){
-    return [];
-   }
 
-   andarCima(){
-    return [];
-   }
+    andarBaixo() {
+        return [];
+    }
 
-   morto(){
-       return [];
-   }
+    andarCima() {
+        return [];
+    }
 
-   andarDireita(){
-    return [];
-   }
+    morto() {
+        return [];
+    }
 
-   andarEsquerda(){
-    return [];
-   }
+    andarDireita() {
+        return [];
+    }
 
-   attackBaixo() {
-    return [];
-   }
-   
-   attackCima() {
-      return [];
-   }
+    andarEsquerda() {
+        return [];
+    }
 
-   attackDireita() {
-    return [];
-   }
+    attackBaixo() {
+        return [];
+    }
 
-   attackEsquerda() {
-    return [];
-   }
+    attackCima() {
+        return [];
+    }
+
+    attackDireita() {
+        return [];
+    }
+
+    attackEsquerda() {
+        return [];
+    }
 
 
 }
@@ -59,69 +59,103 @@ export abstract class Entidade {
 }
 
 //personagem
-export class Zero extends Entidade{
-    
+export class Zero extends Entidade {
+
     public tamanho = 50;
-    public sprite : Sprite = new ZeroSprite();
-    public vector2d : Vector2d =  Vector2d.init({
-        x : 0,
-        y : 0,
+    public sprite: Sprite = new ZeroSprite();
+    public vector2d: Vector2d = Vector2d.init({
+        x: 0,
+        y: 0,
     });
 
-    constructor(){
+    public life = 50;
+
+    constructor() {
         super();
         this.sprite = new ZeroSprite();
     }
 
-    draw(p : any){
-        if(!!this.sprite.imagem){
+    barraDeLife(p: p5) {
+        if(this.life <= 0 ){
+            this.life = 0;
+        }
+
+        let x = this.vector2d.relativeView().x;
+        let y = this.vector2d.relativeView().y;
+        let tam = this.tamanho / 2;
+
+        p.fill(255, 0, 0);
+        p.rect(this.x - tam, this.y - (tam + 10), 50, 5);
+
+        p.fill(0, 255, 0);
+        p.rect(this.x - tam, this.y - (tam + 10), this.life, 5);
+    }
+    draw(p: p5) {
+        if (!!this.sprite.imagem) {
             let x = this.vector2d.relativeView().x;
             let y = this.vector2d.relativeView().y;
-            let tam = this.tamanho/2;
-            p.image(this.sprite.imagem,x-tam,y-tam);
-         }
+            let tam = this.tamanho / 2;
+            this.hud(p);
+            this.barraDeLife(p);
+            p.image(this.sprite.imagem, x - tam, y - tam);
+        }
     }
-    
-    animacao(event : any){
+
+
+
+    hud(p: p5){
+        let x = this.vector2d.relativeView().x;
+        let y = this.vector2d.relativeView().y;
+        let tam = 100 ;
+        p.fill(89, 81, 81);
+        p.stroke('blue');
+        p.strokeWeight(5);
+        p.rect(this.x - (AppComponent.width/2), this.y + ( AppComponent.height/2) - tam - 2.5 ,  AppComponent.width, tam );
+        p.noStroke();
+    }
+
+    animacao(event: any) {
         return this.sprite.imagem;
     }
 
-    posicaoTela(){
+   
+
+    posicaoTela() {
         return this.vector2d.relativeView();
     }
 
-    loadSprite(p : any){
+    loadSprite(p: any) {
         let src = this.sprite.src;
         p.loadImage(src,
-            (img : p5.Image) => {
+            (img: p5.Image) => {
                 console.log("Carregou Imagem!");
-                img.resize(this.tamanho,this.tamanho)
+                img.resize(this.tamanho, this.tamanho)
                 this.sprite.imagem = img;
-             },
-           (erro : Event)=>{
-              console.log(erro);
-           }
-           );
+            },
+            (erro: Event) => {
+                console.log(erro);
+            }
+        );
     }
 
     update(p: p5) {
-        
+
         //this.vector2d.move(this.vector2d.relative(p.mouseX,p.mouseY));
     }
 
-    camera(p : p5){
-        this.vector2d.camera(p);       
+    camera(p: p5) {
+        this.vector2d.camera(p);
     }
 
-    init(){
-        
+    init() {
+
     }
 
-    get x(){
-        return this.vector2d.x;
+    get x() {
+        return this.vector2d.relativeView().x;
     }
 
-    get y(){
-        return this.vector2d.y;
+    get y() {
+        return this.vector2d.relativeView().y;
     }
 }
