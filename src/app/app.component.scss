@@ -1,0 +1,24 @@
+html{
+    overflow: hidden;
+}
+body{
+    overflow: none;
+}
+
+::ng-depp #defaultCanvas0{
+    margin: 0 auto;
+}
+
+::ng-depp .p5Canvas{
+    margin: 0 auto;
+}
+
+::ng-depp canvas{
+    margin: 0 auto;
+}
+
+::ng-depp main{
+    canvas{
+        margin: 0 auto;
+    }
+}

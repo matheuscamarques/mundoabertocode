@@ -1,5 +1,6 @@
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import * as p5 from "p5";
+import { AppComponent } from "src/app/app.component";
 import { Player } from "../abstract/Player";
 import { Sprite } from "../abstract/Sprite";
 import { Vector2d } from "../abstract/Vector2d";
@@ -108,7 +109,19 @@ export class Zero extends Entidade{
         //this.vector2d.move(this.vector2d.relative(p.mouseX,p.mouseY));
     }
 
+    camera(p : p5){
+        this.vector2d.camera(p);       
+    }
+
     init(){
         
+    }
+
+    get x(){
+        return this.vector2d.x;
+    }
+
+    get y(){
+        return this.vector2d.y;
     }
 }

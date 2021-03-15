@@ -22,11 +22,12 @@ export class AppComponent {
   public p5?: p5;
  
 
-  public static width = 500;
-  public static height = 500;
+  public static width = window.outerWidth/1.5;
+  public static height =  window.outerHeight/1.5;
 
   ngOnInit() {
     this.createCanvas();
+  
   }
 
   private createCanvas() {
@@ -42,6 +43,9 @@ export class AppComponent {
 
 
     p.setup = () => {
+      let e : any= document.getElementById("defaultCanvas0");
+      e.style.margin = "0 auto";
+      e.style.display = "flex";
       p.createCanvas(AppComponent.width, AppComponent.height,'p2d');
       Controles.startEvents(p,mundo.activePlayer);
       mundo.activeFase.setup();
@@ -53,7 +57,17 @@ export class AppComponent {
       Controles.mouseMove(mundo.activePlayer,mouse);
 
       p.background(0, 255, 0);
-      mundo.activePlayer.vector2d.camera(p);
+
+      //Limitar a tela para não aparecer fundo verde
+      // if(mundo.activeFase.width > mundo.activePlayer.x + AppComponent.width ){
+      //   mundo.activePlayer.camera(p);
+      // }
+
+      // if(mundo.activeFase.height > mundo.activePlayer.x + AppComponent.height ){
+      //   mundo.activePlayer.camera(p);
+      // }
+      
+      
       mundo.activeFase.draw(p);
      
       //p.move(this.x,this.y);
