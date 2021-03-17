@@ -54,19 +54,14 @@ export class AppComponent {
     
     p.draw = () => {
 
-      let mouse = new Vector2d(p.mouseX,p.mouseY);
-      Controles.mouseMove(mundo.activePlayer,mouse);
+      if (p.mouseIsPressed) {
+        Controles.mouseMove(mundo.activePlayer,new Vector2d(p.mouseX,p.mouseY));
+      }
+      
 
       p.background(0, 255 ,0);
 
-      //Limitar a tela para não aparecer fundo verde
-      // if(mundo.activeFase.width > mundo.activePlayer.x + AppComponent.width ){
-      //   mundo.activePlayer.camera(p);
-      // }
-
-      // if(mundo.activeFase.height > mundo.activePlayer.x + AppComponent.height ){
-      //   mundo.activePlayer.camera(p);
-      // }
+     
       
       mundo.activePlayer.camera(p);
       mundo.activeFase.draw(p);

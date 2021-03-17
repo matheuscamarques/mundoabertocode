@@ -21,6 +21,7 @@ class ElementoMapa{
 
     draw(p : p5,image : p5.Image){
         p.fill(this.cor);
+        p.stroke(this.cor);
         //noFill();
         //Image(img,0,0);
         //square(this.x,this.y,this.tam);

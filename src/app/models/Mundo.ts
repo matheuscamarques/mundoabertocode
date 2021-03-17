@@ -19,6 +19,8 @@ export class Mundo{
     ];
     public static plataformas : Array<Plataforma> = [];
     public static items : Array<Item> = [];
+
+    //public static inimigos : Array<Inimigo0> = [];
     public personagens : Array<Zero> = [
          new Zero()
     ]

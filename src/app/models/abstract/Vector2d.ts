@@ -24,7 +24,7 @@ export class Vector2d extends p5.Vector {
     return new Vector2d(this.centroView.x - x, this.centroView.y - y);
   }
 
-
+  
   updateX(x : any){
     this.x += x;
   }
