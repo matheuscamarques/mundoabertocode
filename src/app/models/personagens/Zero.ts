@@ -132,9 +132,6 @@ export class Zero extends Entidade {
         p.fill(255, 0, 0);
         p.rect(this.x - tam, this.y - (tam + 10), this.life, 5);
 
-         //Barra verde de vida
-        p.fill(0, 255, 0);
-        p.rect(this.x - tam, this.y - (tam + 10), this.life, 5);
     }
 
     drawName(p : p5){
