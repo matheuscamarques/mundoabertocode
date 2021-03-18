@@ -55,7 +55,7 @@ export class AppComponent {
     p.draw = () => {
 
       if (p.mouseIsPressed) {
-        Controles.mouseMove(mundo.activePlayer,new Vector2d(p.mouseX,p.mouseY));
+        Controles.mouseMove(p,mundo.activePlayer,new Vector2d(p.mouseX,p.mouseY));
       }
       
 

@@ -88,9 +88,21 @@ export class Zero extends Entidade {
         y: 0,
     });
 
+    //diminui quando recebe magia/ataque -> aumenta com o poções de vida
+    set life(life){
+        this.life = life;
+    }
+    get life(){
+        return 50 + this.atributos.vitality
+    }
 
-
-    public life = 50;
+    //diminui quando utiliza magia/ataque -> aumenta com o tempo
+    set stamina(stamina){
+        this.stamina = stamina;
+    }
+    get stamina(){
+        return 50 + this.atributos.endurance;
+    }
     
     constructor() {
         super();
@@ -104,6 +116,8 @@ export class Zero extends Entidade {
         this.atributos.intelligence = Math.round(getRandomArbitrary(0,100));
         this.atributos.faith        = Math.round(getRandomArbitrary(0,100));
         this.atributos.lucky        = Math.round(getRandomArbitrary(0,100));
+
+
     }
 
     barraDeLife(p: p5) {
@@ -111,12 +125,12 @@ export class Zero extends Entidade {
         //Faleceu
         if(this.life <= 0 ){  this.life = 0;  }
 
-
+        
         let tam = this.tamanho / 2;
 
         //Barra vermelha de vida
         p.fill(255, 0, 0);
-        p.rect(this.x - tam, this.y - (tam + 10), 50, 5);
+        p.rect(this.x - tam, this.y - (tam + 10), this.life, 5);
 
          //Barra verde de vida
         p.fill(0, 255, 0);
@@ -130,16 +144,44 @@ export class Zero extends Entidade {
         p.text(this.name,this.x - tam, this.y - (tam + 15));
     }
 
+
+    get level (){
+        let count = 0 ;
+
+        for(let atributo in this.atributos){
+            let attr : string = this.atributos[atributo] as string;
+            count = count + parseInt(attr);
+        }
+        return count
+    }
+
     drawAtributos( p : p5 ){
         let tam = 35/2
         let count = 35;
+        p.fill(255, 255, 255);
+        p.textSize(tam);
+      
         for(let atributos in this.atributos){
-            p.fill(255, 255, 255);
-            p.textSize(tam);
             let value = this.atributos[atributos];
-            p.text(atributos + ":" + value ,this.x - (AppComponent.width/2) + 10, this.y - ( AppComponent.height/2)  + count);
+            let icon = '';
+            
+            switch(atributos){
+                case 'lucky' : icon        = '🍀' ; break;
+                case 'faith' : icon        = '🙏' ; break
+                case 'intelligence' : icon = '🧠' ; break
+                case 'resistance' : icon   = '🛡️ ' ; break
+                case 'dexterity' : icon    = '🗡️' ; break
+                case 'strength' : icon     = '💪' ; break
+                case 'endurance' : icon    = '🏃‍♂️ ' ; break
+                case 'attunement' : icon   = '📖' ; break
+                case 'vitality' : icon     = '💓' ; break
+            }
+
+            p.text(icon + "\t" + value ,this.x - (AppComponent.width/2) + 10, this.y + ( AppComponent.height/2)  - count);
             count+=tam;
         }
+        p.text('LEVEL' + "\t" + this.level ,this.x - (AppComponent.width/2) + 10, this.y + ( AppComponent.height/2)  - count - 10);
+        count+=tam;
        
     }
 
@@ -162,16 +204,34 @@ export class Zero extends Entidade {
 
 
     hud(p: p5){
-        // let x = this.vector2d.relativeView().x;
-        // let y = this.vector2d.relativeView().y;
-        // let tam = 100 ;
-        // p.fill(89, 81, 81);
-        // p.stroke('blue');
-        // p.strokeWeight(5);
-        // p.rect(this.x - (AppComponent.width/2), this.y + ( AppComponent.height/2) - tam - 2.5 ,  AppComponent.width, tam );
-        // p.noStroke();
-        //p.text('word', 10, 30);
+         //Faleceu
+         if(this.life <= 0 ){  this.life = 0;  }
+
+        let director_x = 10;
+        let director_y = 10;
+        
+        
+         let tam = this.tamanho / 2;
+         p.image(this.sprite.imagem, this.x - (AppComponent.width/2) + director_x ,this.y - ( AppComponent.height/2) + director_y);
+        
+         //Barra vermelha de vida
+         p.fill(255, 0, 0);
+         p.rect(this.x -  (AppComponent.width/2) + tam*2 + director_x, this.y -( AppComponent.height/2) + director_y, this.life, 5);
+ 
+          //Barra verde de stamina
+
+         p.fill(0, 255, 0);
+         p.rect(this.x -  (AppComponent.width/2) + tam*2 + director_x, this.y - ( AppComponent.height/2) + 10 + director_y, this.stamina, 5);
+
+
     }
+
+
+    // tamanhoDaVida(value : number){
+    
+    //     let y = value;
+    //     let porcent  = (y*100) / 50;  
+    // }
 
     animacao(event: any) {
         return this.sprite.imagem;

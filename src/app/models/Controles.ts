@@ -16,10 +16,12 @@ export class Controles{
     }
 
 
-    static mouseMove(entidade : Zero,mouse : Vector2d){
+    static mouseMove(p : p5,entidade : Zero,mouse : Vector2d){
+
+        p.cursor(p.CROSS);
          mouse = mouse.relativeView();
-         mouse.setMag(3);
-        entidade.vector2d.add(mouse.x,mouse.y);
+         mouse.setMag(5);
+         entidade.vector2d.add(mouse.x,mouse.y);
        // entidade.vector2d.move(entidade.vector2d.relative(mouse.x,mouse.y));
        
         //entidade.life  -= 0.5;
