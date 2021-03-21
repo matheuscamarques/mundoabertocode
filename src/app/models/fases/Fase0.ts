@@ -105,7 +105,7 @@ export class Fase0 extends Fase{
            (erro : Event)=>{
               console.log(erro);
            }
-           );
+        );
     }
    
 
@@ -113,7 +113,10 @@ export class Fase0 extends Fase{
 
     public blocos = [BlocoPreto,Wall,Wall];
 
-    public matrix = [
+    //TAMANHO DA VISAO 500X500
+    //  
+
+    public matrix = [         
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -166,18 +169,20 @@ export class Fase0 extends Fase{
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     ];
-
+  
+    
     public width : number = this.matrix[0].length * this.tamanho_blocos;
     public height : number =  this.matrix.length * this.tamanho_blocos;
 
     public elementos: Array<ElementoMapa> = [];
 
     setup(){
-        
+       
         for (let i = 0; i < this.matrix.length; i++) {
+            
             for(let j=0;j< this.matrix[i].length;j++) {
                 let k = this.matrix[i][j];
-                let bloco = new this.blocos[k](j*this.tamanho_blocos,i*this.tamanho_blocos);
+                let bloco = new this.blocos[k] (j*this.tamanho_blocos,i*this.tamanho_blocos);
                this.elementos.push(bloco);
             }
         }
@@ -188,5 +193,14 @@ export class Fase0 extends Fase{
             this.elementos[i].draw(p,this.sprite.imagem);
          }
 
+    }
+
+
+    getWidth(){
+        return this.matrix[0].length * this.tamanho_blocos;
+    }
+
+    getHeight(){
+        return this.matrix.length * this.tamanho_blocos;
     }
 }

@@ -60,16 +60,19 @@ export abstract class Entidade {
 
 
 export class Atributos{
-    [key: string]: string | number;
-    public vitality   :  number | any = 0; 
-    public attunement :  number | any = 0; 
-    public endurance  :  number | any = 0; 
-    public strength   :  number | any = 0;
-    public dexterity  :  number | any = 0;
-    public resistance    :  number | any = 0;
-    public intelligence  :  number | any = 0;
-    public faith :  number | any = 0;
-    public lucky : number | any = 0;
+           [key: string]: string | number;
+    public vitality     : number | any = 0;
+    public attunement   : number | any = 0;
+    public endurance    : number | any = 0;
+    public strength     : number | any = 0;
+    public dexterity    : number | any = 0;
+    public resistance   : number | any = 0;
+    public intelligence : number | any = 0;
+    public faith        : number | any = 0;
+    public lucky        : number | any = 0;
+
+
+  
 }
 
 function getRandomArbitrary(min = 0, max = 0) {
@@ -106,7 +109,16 @@ export class Zero extends Entidade {
     
     constructor() {
         super();
+        this.initSprite();
+        this.initAtributos();
+    }
+
+
+    initSprite(){
         this.sprite                 = new ZeroSprite();
+    }
+
+    initAtributos(){
         this.atributos.vitality     = Math.round(getRandomArbitrary(0,100));
         this.atributos.attunement   = Math.round(getRandomArbitrary(0,100));
         this.atributos.endurance    = Math.round(getRandomArbitrary(0,100));
@@ -116,8 +128,6 @@ export class Zero extends Entidade {
         this.atributos.intelligence = Math.round(getRandomArbitrary(0,100));
         this.atributos.faith        = Math.round(getRandomArbitrary(0,100));
         this.atributos.lucky        = Math.round(getRandomArbitrary(0,100));
-
-
     }
 
     barraDeLife(p: p5) {

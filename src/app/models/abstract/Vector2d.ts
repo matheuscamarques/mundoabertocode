@@ -7,6 +7,12 @@ export class Vector2d extends p5.Vector {
     x: AppComponent.width / 2,
     y: AppComponent.height / 2,
   };
+
+  relativeView() {
+    return new Vector2d(this.centroView.x - this.x, this.centroView.y - this.y);
+  }
+
+  
   constructor(public x = 0, public y = 0) {
     super();
   }
@@ -16,9 +22,7 @@ export class Vector2d extends p5.Vector {
   }
 
   //
-  relativeView() {
-    return new Vector2d(this.centroView.x - this.x, this.centroView.y - this.y);
-  }
+ 
 
   relative(x: any ,y : any){
     return new Vector2d(this.centroView.x - x, this.centroView.y - y);
@@ -40,8 +44,7 @@ export class Vector2d extends p5.Vector {
 
   moveEvent(p:p5 , key : string) {
     if (key == 'w') {
-      this.y += 10;
-      
+      this.y += 10; 
     }
     if (key == 's') {
       this.y -= 10;
