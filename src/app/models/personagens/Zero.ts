@@ -103,7 +103,7 @@ export class Zero extends Entidade {
     public name = "Zero";
     public atributos : Atributos = new Atributos();
 
-
+    public rang_x = [0,0,0];
 
 
 
@@ -219,44 +219,44 @@ export class Zero extends Entidade {
         let tam = this.tamanho / 2;
         let a = p.atan2(p.mouseY - AppComponent.height / 2, p.mouseX - AppComponent.width / 2);
         //console.log(a);
-        let distA = 0.5;
-        let rang_x = [0,3,0];
+        let distA = 0.45;
+        
         
         if(a >= -1.5 -distA && a <= -1.5 + distA){
-            rang_x = this.sprite.andarCima();
+            this.rang_x = this.sprite.andarCima();
         }
 
         if(a >= 1.5 -distA && a <= 1.5 + distA){
-            rang_x = this.sprite.andarBaixo();
+            this.rang_x = this.sprite.andarBaixo();
         }
 
-        if(a >= 0 - distA && a <= 0 + distA){
-            rang_x = this.sprite.andarDireita();
+        if(a >= 1 - distA && a <= 1 + distA){
+            this.rang_x = this.sprite.andarDireita();
         }
 
         if(a >= 3 - distA && a <= 3 + distA){
-            rang_x = this.sprite.andarEsquerda();
+            this.rang_x = this.sprite.andarEsquerda();
         }
 
         if(a >= 2.5 - distA && a <= 2.5 + distA){
-            rang_x = this.sprite.andarBaixoEsquerda();
+            this.rang_x = this.sprite.andarBaixoEsquerda();
         }
 
         if(a >= 0.5 - distA && a <= 0.5 + distA){
-            rang_x = this.sprite.andarBaixoDireita();
+            this.rang_x = this.sprite.andarBaixoDireita();
         }
 
         if(a >= -2.5 - distA && a <= -2.5+ distA){
-            rang_x = this.sprite.andarCimaEsquerda();
+            this.rang_x = this.sprite.andarCimaEsquerda();
         }
 
         if(a >= -0.5 - distA && a <= -0.5 + distA){
-            rang_x = this.sprite.andarCimaDireita();
+            this.rang_x = this.sprite.andarCimaDireita();
         }
        
         if (p.mouseIsPressed){
             if(this.acumudordepassos%2){
-                this.passos = rang_x[0] + ( (this.passos + 1)  % (rang_x[1] - rang_x[0]));
+                this.passos = this.rang_x[0] + ( (this.passos + 1)  % (this.rang_x[1] - this.rang_x[0]));
                 console.log(this.passos);
            }
         }
@@ -271,7 +271,7 @@ export class Zero extends Entidade {
                 46,
                 48.5,
                 46 * (this.passos) ,
-                48.5 * rang_x[2],
+                48.5 * this.rang_x[2],
                 46,
                 48.5
                 );
@@ -300,7 +300,15 @@ export class Zero extends Entidade {
         
         
          let tam = this.tamanho / 2;
-         p.image(this.sprite.imagem, this.x - (AppComponent.width/2) + director_x ,this.y - ( AppComponent.height/2) + director_y);
+         p.image(this.sprite.imagem, 
+            this.x - (AppComponent.width/2) + director_x ,
+            this.y - ( AppComponent.height/2) + director_y,
+            46,
+            48.5,
+            46 * (this.passos) ,
+            48.5 * this.rang_x[2],
+            46,
+            48.5);
         
          //Barra vermelha de vida
          p.fill(255, 0, 0);
