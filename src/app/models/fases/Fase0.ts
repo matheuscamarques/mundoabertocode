@@ -74,7 +74,7 @@ class SpriteBlock extends ElementoMapa{
              this.y ,
              this.tamanho,
              this.tamanho,
-             16*this.matrixX,
+             16*(this.matrixX+1),
              16*this.matrixY,
              16,
              16

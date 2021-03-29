@@ -22,8 +22,8 @@ export class AppComponent {
   public p5?: p5;
 
 
-  public static width = 500;
-  public static height = 500;
+  public static width = 900;
+  public static height = 600;
 
   ngOnInit() {
     this.createCanvas();
@@ -88,14 +88,15 @@ export class AppComponent {
       // x - AppComponent.width.      x com o limite da esquerda
       // y - AppComponent.height.     y com o limite de cima. 
       //typeof mundo.activeFase.matrix[mundo.activeFase.matrix.length - 1 ][mundo.activeFase.matrix[0].length-1]
-      console.log(mundo.activeFase.matrix.length, mundo.activeFase.matrix[0].length);
+      //console.log(mundo.activeFase.matrix.length, mundo.activeFase.matrix[0].length);
+
+     
 
       
       
-      
-      if (y <   ((mundo.activeFase.matrix.length - 1) * 50) &&
-          x <   ((mundo.activeFase.matrix[0].length - 1) * 50) &&
-          x >= 0 && y >= 0
+      if (y                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <   ((mundo.activeFase.matrix.length - 1) * 50) &&
+          x  <   ((mundo.activeFase.matrix[0].length - 1) * 50) &&
+          x >= 0 && y - 250>= 0
         ){
         p.translate(mundo.activePlayer.vector2d.x, mundo.activePlayer.vector2d.y);
         ultimoX = mundo.activePlayer.vector2d.x;
@@ -116,7 +117,6 @@ export class AppComponent {
       // Teste GUi
       //  if (50 - AppComponent.width - x != 50)
       //    mundo.activePlayer.camera(p);
-
 
 
 

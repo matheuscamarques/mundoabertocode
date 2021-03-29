@@ -9,18 +9,30 @@ import { Mundo } from "../Mundo";
 
 export class ZeroSprite extends Sprite {
 
-    public src = 'assets/imagem/zero.jpg';
+    public src = 'assets/imagem/zero_sprite.png';
     //this.leftRunning;
     public imagem: any = 0;
 
 
-
-    andarBaixo() {
-        return [];
+    andarBaixoEsquerda(){
+        return [3,6,0];
     }
 
+    andarBaixoDireita(){
+        return [3,6,2];
+    }
+    andarBaixo() {
+        return [0,3,0];
+    }
+
+    andarCimaDireita(){
+        return [3,6,3];
+    }
+    andarCimaEsquerda(){
+        return [3,6,1];
+    }
     andarCima() {
-        return [];
+        return [0,3,3];
     }
 
     morto() {
@@ -28,11 +40,11 @@ export class ZeroSprite extends Sprite {
     }
 
     andarDireita() {
-        return [];
+        return [0,3,2];
     }
 
     andarEsquerda() {
-        return [];
+        return [0,3,1];
     }
 
     attackBaixo() {
@@ -80,12 +92,23 @@ function getRandomArbitrary(min = 0, max = 0) {
 }
 
 //personagem
+const NORTE =  1;
+const SUL   = -1;
+const LESTE = -1;
+const OESTE = 1; 
+
 export class Zero extends Entidade {
+    public passos = 0;
+    public acumudordepassos = 0;
     public name = "Zero";
     public atributos : Atributos = new Atributos();
 
+
+
+
+
     public tamanho = 50;
-    public sprite: Sprite = new ZeroSprite();
+    public sprite: ZeroSprite = new ZeroSprite();
     public vector2d: Vector2d = Vector2d.init({
         x: 0,
         y: 0,
@@ -194,8 +217,66 @@ export class Zero extends Entidade {
 
     drawSprite( p : p5){
         let tam = this.tamanho / 2;
-        p.image(this.sprite.imagem, this.x - tam,this.y - tam);
-    }
+        let a = p.atan2(p.mouseY - AppComponent.height / 2, p.mouseX - AppComponent.width / 2);
+        //console.log(a);
+        let distA = 0.5;
+        let rang_x = [0,3,0];
+        
+        if(a >= -1.5 -distA && a <= -1.5 + distA){
+            rang_x = this.sprite.andarCima();
+        }
+
+        if(a >= 1.5 -distA && a <= 1.5 + distA){
+            rang_x = this.sprite.andarBaixo();
+        }
+
+        if(a >= 0 - distA && a <= 0 + distA){
+            rang_x = this.sprite.andarDireita();
+        }
+
+        if(a >= 3 - distA && a <= 3 + distA){
+            rang_x = this.sprite.andarEsquerda();
+        }
+
+        if(a >= 2.5 - distA && a <= 2.5 + distA){
+            rang_x = this.sprite.andarBaixoEsquerda();
+        }
+
+        if(a >= 0.5 - distA && a <= 0.5 + distA){
+            rang_x = this.sprite.andarBaixoDireita();
+        }
+
+        if(a >= -2.5 - distA && a <= -2.5+ distA){
+            rang_x = this.sprite.andarCimaEsquerda();
+        }
+
+        if(a >= -0.5 - distA && a <= -0.5 + distA){
+            rang_x = this.sprite.andarCimaDireita();
+        }
+       
+        if (p.mouseIsPressed){
+            if(this.acumudordepassos%2){
+                this.passos = rang_x[0] + ( (this.passos + 1)  % (rang_x[1] - rang_x[0]));
+                console.log(this.passos);
+           }
+        }
+       
+      
+      
+    
+        p.image(
+                this.sprite.imagem, 
+                this.x ,
+                this.y ,
+                46,
+                48.5,
+                46 * (this.passos) ,
+                48.5 * rang_x[2],
+                46,
+                48.5
+                );
+        this.acumudordepassos++;     
+    }   
 
 
     draw(p: p5) {
@@ -255,7 +336,7 @@ export class Zero extends Entidade {
         p.loadImage(src,
             (img: p5.Image) => {
                 console.log("Carregou Imagem!");
-                img.resize(this.tamanho, this.tamanho)
+                img.resize(283, 197)
                 this.sprite.imagem = img;
             },
             (erro: Event) => {
